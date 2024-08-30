@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { ViewTransitions } from 'astro:transitions';
+
+type Props = {
+    title: string;
+    description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <ViewTransitions/>
+	</head>
+    
+	<body class=" w-full min-h-[100dvh] p-0 m-0 relative bg-transparent bg-gradient-to-r items-center justify-center">
+        <header class="flex fixed w-full bg-white/70 p-4 backdrop-blur-md top-0 z-20">
+            <img src="/logo-aens-horizontal.png" class=" flex w-[150px]"/>
+        </header>
+        <main class=" flex flex-col w-full min-h-[100dvh] max-w-[500px] p-8 py-[180px] items-center justify-center font-inter z-20 m-auto" transition:animate="slide">
+            <slot/>
+        </main>
+        <div class=" w-full h-full absolute top-0 -z-10">
+            <img src="/svgs/top-left-form.svg" class=" absolute top-0 -left-0">
+            <img src="/svgs/top-right-form.svg" class=" absolute top-0 right-0">
+            <img src="/svgs/bottom-left-form.svg" class=" absolute -bottom-0 -left-0">
+            <img src="/svgs/bottom-right-form.svg" class=" absolute -bottom-0 -right-0">
+        </div>
+	</body>
+</html>

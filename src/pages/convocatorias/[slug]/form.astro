@@ -1,0 +1,35 @@
+---
+import { Icon } from "astro-icon/components";
+import { CONVOCATORIAS } from "../../../content/conv";
+import BaseInterection from "../../../layouts/BaseInterection.layout.astro";
+import {Button} from "@nextui-org/button"
+import {Input} from "@nextui-org/input"
+
+import MainFormComponent from "@/components/common/mainForm.component"
+
+export async function getStaticPaths() {
+    return CONVOCATORIAS.map((conv) => ({
+        params: { slug: conv.base.slug },
+    }));
+}
+
+const { slug } = Astro.params;
+
+const convocatoria = CONVOCATORIAS.find((v) => v.base.slug === slug);
+const currentPath = Astro.url.pathname;
+---
+
+<BaseInterection
+    title={convocatoria?.base.title ?? "Convocatoria"}
+    description={convocatoria!.base.meta_description}
+>
+	<div class=" flex flex-col items-end h-full space-y-2">
+		<h1 class="font-extrabold text-xl text-center w-full">
+			Completa con tus datos
+		</h1>
+		<p class=" text-base">
+            Completa con tu información. Esto nos ayudará a poder contactarte y enviarte mas información de convocatorias como estas.
+		</p>
+        <MainFormComponent conv={convocatoria} path={currentPath} client:load/>
+	</div>
+</BaseInterection>
