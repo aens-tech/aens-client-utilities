@@ -1,11 +1,14 @@
 ---
 export const prerender = false;
 
+// @ts-ignore
 import { API } from "@/lib/utils/env";
 import { CONVOCATORIAS } from "../../../content/conv";
 import BaseInterection from "../../../layouts/BaseInterection.layout.astro";
 
+// @ts-ignore
 import MainFormComponent from "@/components/common/mainForm.component";
+import type { IUtilityResponse } from "@/interfaces/utility";
 
 const { slug } = Astro.params;
 
@@ -15,7 +18,7 @@ const req = await fetch(`${API}/utility?slug=${slug}`, {
 
 const currentPath = Astro.url.pathname;
 
-const convocatoria = await req.json();
+const convocatoria: IUtilityResponse = await req.json();
 ---
 
 <BaseInterection

@@ -6,7 +6,7 @@ import { CONVOCATORIAS } from "@/content/conv";
 import BaseInterection from "@/layouts/BaseInterection.layout.astro";
 import {Button} from "@nextui-org/button"
 
-import ConvocatoriaIndexComponent from "@/components/convocatorias/convocatoriaIndex.component"
+import UtilityIndexComponent from "@/components/utility/utilityIndex.component"
 
 import {API} from "@/lib/utils/env"
 
@@ -16,7 +16,9 @@ import {API} from "@/lib/utils/env"
 //     }));
 // }
 
-const { slug } = Astro.params;
+const { slug, utilityType } = Astro.params;
+
+console.log(utilityType)
 
 ---
 
@@ -24,8 +26,9 @@ const { slug } = Astro.params;
     title={"AENS - Convocatoria"}
     description={"Estas apunto de ser parte de una convocatoria de AENS TECH."}
 >
-	<ConvocatoriaIndexComponent
+	<UtilityIndexComponent
 		slug={slug ?? ""}
+		utlityType={utilityType ?? ""}
 		client:load
 	/>
 </BaseInterection>

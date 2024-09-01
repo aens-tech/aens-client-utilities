@@ -1,4 +1,4 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button, Checkbox, Input } from "@nextui-org/react";
 import type { IConvocatoria, IFormField } from "@/content/conv";
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from "react";
@@ -7,9 +7,10 @@ import { useForm } from "react-hook-form";
 import zod, { date } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { API } from "@/lib/utils/env";
+import type { IUtilityResponse } from "@/interfaces/utility";
 
 interface Props {
-    conv: IConvocatoria | undefined;
+    conv: IUtilityResponse | undefined;
     path: string;
     interests: any;
     slug?: string;
@@ -17,12 +18,13 @@ interface Props {
 
 const MainFormComponent: React.FC<Props> = (props) => {
     const [formState, setFormState] = useState<'idle' | 'isLoading' | 'succeeded' | 'error'>('idle');
+    const [acceptedTerms, setAcceptedTerms] = useState<boolean>(true);
 
     const RegisterSchema = zod.object({
         name: zod.string().min(3, { message: "Tu nombre tiene que tener por lo menos 3 letras." }),
         email: zod.string().email({ message: "No es un correo electrónico válido." }),
         phone: zod.string().min(1, { message: "El número de teléfono debe tener algún valor." }),
-        birthday: zod.string().date("No es una fecha válida.")
+        birthday: zod.string().date("No es una fecha válida."),
     });
 
     const formInstance = useForm({
@@ -133,14 +135,16 @@ const MainFormComponent: React.FC<Props> = (props) => {
                 ))
             }
 
+            <Checkbox className=" mr-auto my-2" isSelected={acceptedTerms} onValueChange={(e) => setAcceptedTerms(e)}><small>Acepto la <a className=" text-primary font-bold" href="/tyc">política de tratamiento de datos, los términos, condiciones y restricciones</a>.</small></Checkbox>
+
             {/* {formState === 'isLoading' && <p>Enviando...</p>} */}
             {formState === 'succeeded' && <p>¡Formulario enviado con éxito!</p>}
             {formState === 'error' && <p className="text-red-500">Error al enviar el formulario, inténtalo de nuevo.</p>}
 
             <button
-                disabled={!formInstance?.formState?.isValid || formState === 'isLoading'}
+                disabled={!formInstance?.formState?.isValid || formState === 'isLoading' || !acceptedTerms}
                 type="submit"
-                className={`w-fit flex flex-row items-center justify-center px-4 py-3 rounded-xl text-xs font-bold text-white ${!formInstance?.formState?.isValid || formState === 'isLoading' ? "bg-primary/20" : "bg-primary"
+                className={`w-fit flex flex-row items-center justify-center px-4 py-3 rounded-xl text-xs font-bold text-white ${(!formInstance?.formState?.isValid || formState === 'isLoading' || !acceptedTerms) ? "bg-primary/20" : "bg-primary"
                     }`}
             >
                 <Icon icon="solar:document-add-bold" className="mr-1 text-lg"></Icon>
