@@ -1,10 +1,10 @@
 import type { IGenericInteractionData } from "../types/genericInteractionData.type";
 
-interface IFormField {
+export interface IFormField {
     label: string;
-    name: string;
+    name: "name" | "email" | "phone" | "birthday";
     category: "EMAIL" | "NAME" | "PHONE" | "BIRTH";
-    type?: "email" | "text" | "number" | "date";
+    type?: "email" | "text" | "number" | "date" | string;
 }
 
 export interface IConvocatoria extends IGenericInteractionData {
