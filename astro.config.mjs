@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
+import 'dotenv/config'
 
 import react from "@astrojs/react";
 
@@ -10,5 +11,8 @@ import react from "@astrojs/react";
 export default defineConfig({
   site: 'https://example.com',
   output: 'hybrid',
-  integrations: [mdx(), sitemap(), tailwind(), icon(), react()]
+  integrations: [mdx(), sitemap(), tailwind(), icon(), react()],
+  server: {
+    port: parseInt(process.env.PORT) || 4321, host: true
+  }
 });
