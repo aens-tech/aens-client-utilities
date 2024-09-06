@@ -7,32 +7,18 @@ import BaseInterection from "../../../layouts/BaseInterection.layout.astro";
 
 import MainFormComponent from "@/components/common/mainForm.component";
 import { Icon } from "astro-icon/components";
+import UtilitySucceededComponent from "@/components/utility/utilitySucceeded.component";
 
-const { slug } = Astro.params;
-
-const req = await fetch(`${API}/utility?slug=${slug}`, {
-    method: "GET",
-});
-
-const currentPath = Astro.url.pathname;
-
-const convocatoria = await req.json();
+const { slug, utilityType } = Astro.params;
 ---
 
 <BaseInterection
-    title={convocatoria?.name ?? "Convocatoria"}
-    description={convocatoria!.description}
+    title={"Descarga Lista"}
+    description={""}
 >
-    <div class="flex flex-col items-end h-full space-y-2">
-        <Icon
-            name="solar:check-circle-bold"
-            class="text-primary text-[200px] mb-2 w-full"
-        />
-        <h1 class="font-extrabold text-xl text-center w-full">¡Quedó Listo!</h1>
-        <p class="text-base">
-            Nos estaremos comunicando contigo por medio por medio de correo
-            electrónico, tu número de teléfono y por medio de videos en nuestras
-            redes sociales. ¡Mantente al tanto para no perderte nada!
-        </p>
-    </div>
+    <UtilitySucceededComponent
+        slug={slug ?? ""}
+        utilityType={utilityType ?? ""}
+        client:load
+    />
 </BaseInterection>

@@ -7,4 +7,5 @@ export interface IUtilityResponse {
     type: string;
     interests: string[];
     userAlreadyIn: boolean;
+    url?: string;
 }

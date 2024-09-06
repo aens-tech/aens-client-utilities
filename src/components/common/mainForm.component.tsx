@@ -8,12 +8,14 @@ import zod, { date } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { API } from "@/lib/utils/env";
 import type { IUtilityResponse } from "@/interfaces/utility";
+import { getActionFromUtilityType, getUtilityTypeFromLocalType } from "@/lib/utils";
 
 interface Props {
     conv: IUtilityResponse | undefined;
     path: string;
     interests: any;
     slug?: string;
+    utilityType: string;
 }
 
 const MainFormComponent: React.FC<Props> = (props) => {
@@ -60,8 +62,8 @@ const MainFormComponent: React.FC<Props> = (props) => {
                     userBirthday: data.birthday,
                     userPhone: data.phone,
                     interests: props.interests,
-                    action: "JOIN_SUMMON",
-                    utilityType: "SUMMON",
+                    action: getActionFromUtilityType(props.utilityType),
+                    utilityType: getUtilityTypeFromLocalType(props.utilityType),
                     slug: props.slug
                 })
             });
@@ -74,7 +76,7 @@ const MainFormComponent: React.FC<Props> = (props) => {
 
             setFormState('succeeded');
 
-            window.location.pathname = `/convocatorias/${props.slug}/succeeded`
+            window.location.pathname = `/${props.utilityType}/${props.slug}/succeeded`
 
             console.log("data", data);
         } catch (error) {
