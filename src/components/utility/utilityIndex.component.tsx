@@ -6,6 +6,8 @@ import { Icon } from '@iconify/react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import { getActionFromUtilityType, getUtilityTypeFromLocalType } from "@/lib/utils";
 
+import {Skeleton} from "@nextui-org/skeleton";
+
 interface Props {
     slug: string;
     utilityType: string;
@@ -44,6 +46,7 @@ const ConvocatoriaIndexComponent: React.FC<Props> = (props) => {
             }
         }
 
+        // setStateFetch("isLoading")
         handleGetConvocatoria()
     }, [])
 
@@ -85,6 +88,22 @@ const ConvocatoriaIndexComponent: React.FC<Props> = (props) => {
         return <p className=" font-bold">
             ¡Ups! No hemos podido encontrar lo que buscabas
         </p>
+    }
+
+    if (stateFetch === "isLoading") {
+        return (
+            <div className="flex flex-col items-end w-full space-y-6">
+                <div className=" flex flex-col w-full items-center">
+                    <Skeleton className=" flex w-[80px] h-[80px] rounded-lg"/>
+                </div>
+                <div className=" flex flex-col space-y-2 w-full">
+                    <Skeleton className=" flex w-full h-[15px] rounded-lg"/>
+                    <Skeleton className=" flex w-full h-[15px] rounded-lg"/>
+                    <Skeleton className=" flex w-1/2 h-[15px] rounded-lg"/>
+                </div>
+                <Skeleton className=" flex w-[150px] h-[40px] rounded-lg"/>
+            </div>
+        )
     }
 
     return (
