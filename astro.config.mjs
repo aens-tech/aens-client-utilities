@@ -15,6 +15,9 @@ export default defineConfig({
   adapter:  node({
     mode: "middleware"
   }),
+  devToolbar: {
+    enabled: false
+  },
   integrations: [mdx(), sitemap(), tailwind(), icon(), react()],
   server: {
     port: parseInt(process.env.PORT) || 4321, host: true
