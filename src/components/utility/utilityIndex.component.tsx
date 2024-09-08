@@ -90,7 +90,7 @@ const ConvocatoriaIndexComponent: React.FC<Props> = (props) => {
         </p>
     }
 
-    if (stateFetch === "isLoading") {
+    if (stateFetch === "isLoading" || stateFetch === "idle") {
         return (
             <div className="flex flex-col items-end w-full space-y-6">
                 <div className=" flex flex-col w-full items-center">
