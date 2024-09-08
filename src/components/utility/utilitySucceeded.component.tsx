@@ -3,6 +3,7 @@ import { getUtilityTypeFromLocalType } from '@/lib/utils';
 import { API } from '@/lib/utils/env';
 import { Icon } from '@iconify/react';
 import { Button } from "@nextui-org/button";
+import { Skeleton } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -42,11 +43,31 @@ const UtilitySucceededComponent: React.FC<Props> = (props) => {
             }
         }
 
+        if (!localStorage.getItem("userEmail")){
+            window.location.href = `/${props.utilityType}/${props.slug}`
+        }
+
         handleGetConvocatoria()
     }, [])
 
     if (stateFetch === "error") {
         return <p>Hubo un error con lo que estas pidiendo a la plataforma.</p>
+    }
+
+    if (stateFetch === "isLoading" || stateFetch === "idle") {
+        return (
+            <div className="flex flex-col items-end w-full space-y-6">
+                <div className=" flex flex-col w-full items-center">
+                    <Skeleton className=" flex w-[150px] h-[150px] rounded-lg"/>
+                </div>
+                <div className=" flex flex-col space-y-2 w-full">
+                    <Skeleton className=" flex w-full h-[15px] rounded-lg"/>
+                    <Skeleton className=" flex w-full h-[15px] rounded-lg"/>
+                    <Skeleton className=" flex w-1/2 h-[15px] rounded-lg"/>
+                </div>
+                {/* <Skeleton className=" flex w-[150px] h-[40px] rounded-lg"/> */}
+            </div>
+        )
     }
 
     return (
@@ -91,8 +112,9 @@ const UtilitySucceededComponent: React.FC<Props> = (props) => {
                 props.utilityType === "descarga" &&
                 <Button 
                     className="text-base w-full"
-                    color={stateFetch === "isLoading" ? "default" : "primary"}
-                    isDisabled={stateFetch === "isLoading"}
+                    // color={stateFetch === "isLoading" ? "default" : "primary"}
+                    // isDisabled={stateFetch === "isLoading"}
+                    color={"primary"}
                     onClick={() => {
                         window.location.href = convocatoria!.url ?? ""
                     }}
