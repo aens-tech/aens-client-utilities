@@ -1,5 +1,5 @@
 import type { IUtilityResponse } from "@/interfaces/utility"
-import { API } from "@/lib/utils/env";
+import { API_URL } from "@/lib/utils/env";
 import { useEffect, useState } from "react";
 
 import { Icon } from '@iconify/react';
@@ -25,7 +25,7 @@ const ConvocatoriaIndexComponent: React.FC<Props> = (props) => {
             try {
                 setStateFetch("isLoading")
 
-                const response = await fetch(`${API}/utility?slug=${props.slug}&type=${getUtilityTypeFromLocalType(props.utilityType)}&userEmail=${localStorage.getItem("userEmail")}`, {
+                const response = await fetch(`${API_URL}/utility/${props.slug}?type=${getUtilityTypeFromLocalType(props.utilityType)}&userEmail=${localStorage.getItem("userEmail")}`, {
                     method: "GET"
                 })
 
@@ -56,7 +56,7 @@ const ConvocatoriaIndexComponent: React.FC<Props> = (props) => {
 
             console.log(convocatoria!.interests)
 
-            const response = await fetch(`${API}/utility/action`, {
+            const response = await fetch(`${API_URL}/utility/action`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -126,10 +126,10 @@ const ConvocatoriaIndexComponent: React.FC<Props> = (props) => {
                                         className="text-primary text-[60px] mb-2 w-full"
                                     />
                             }
-                            <h1 className="font-extrabold text-xl text-center mb-4">
+                            <h1 className="flex w-full font-extrabold text-xl text-justify mb-4">
                                 {convocatoria.name}
                             </h1>
-                            <p className=" text-base mb-4">
+                            <p className=" flex w-full text-base text-justify self-center mb-4">
                                 {convocatoria!.description ?? "test"}
                             </p>
                             <a

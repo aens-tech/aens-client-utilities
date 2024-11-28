@@ -1,0 +1,19 @@
+---
+export const prerender = false
+
+import BaseInterection from "@/layouts/BaseInterection.layout.astro";
+
+import AdminDashboardComponent from "@/components/admin/adminDashboard.component";
+import CreateUtilityComponent from "@/components/admin/createUtility/createUtility.component";
+---
+
+<BaseInterection
+    title={"AENS - Convocatoria"}
+    description={"Estas apunto de ser parte de una convocatoria de AENS TECH."}
+	showDecorations={false}
+    disableCenteredOnVertical={true}
+>
+	<CreateUtilityComponent
+		client:load
+	/>
+</BaseInterection>

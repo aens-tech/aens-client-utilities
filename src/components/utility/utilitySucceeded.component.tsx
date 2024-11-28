@@ -1,6 +1,6 @@
 import type { IUtilityResponse } from '@/interfaces/utility';
 import { getUtilityTypeFromLocalType } from '@/lib/utils';
-import { API } from '@/lib/utils/env';
+import { API_URL } from '@/lib/utils/env';
 import { Icon } from '@iconify/react';
 import { Button } from "@nextui-org/button";
 import { Skeleton } from '@nextui-org/react';
@@ -22,7 +22,7 @@ const UtilitySucceededComponent: React.FC<Props> = (props) => {
 
                 console.log()
 
-                const response = await fetch(`${API}/utility?slug=${props.slug}&type=${getUtilityTypeFromLocalType(props.utilityType)}&userEmail=${localStorage.getItem("userEmail")}`, {
+                const response = await fetch(`${API_URL}/utility/${props.slug}?type=${getUtilityTypeFromLocalType(props.utilityType)}&userEmail=${localStorage.getItem("userEmail")}`, {
                     method: "GET"
                 })
     

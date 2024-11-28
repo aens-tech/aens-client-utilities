@@ -8,7 +8,7 @@ import {Button} from "@nextui-org/button"
 
 import UtilityIndexComponent from "@/components/utility/utilityIndex.component"
 
-import {API} from "@/lib/utils/env"
+import {API_URL} from "@/lib/utils/env"
 
 // export async function getStaticPaths() {
 //     return CONVOCATORIAS.map((conv) => ({
@@ -25,6 +25,7 @@ console.log(utilityType)
 <BaseInterection
     title={"AENS - Convocatoria"}
     description={"Estas apunto de ser parte de una convocatoria de AENS TECH."}
+	showDecorations={true}
 >
 	<UtilityIndexComponent
 		slug={slug ?? ""}

@@ -9,9 +9,11 @@ import { ViewTransitions } from 'astro:transitions';
 type Props = {
     title: string;
     description: string;
+    showDecorations: boolean;
+    disableCenteredOnVertical?: boolean
 }
 
-const { title, description } = Astro.props;
+const { title, description, showDecorations, disableCenteredOnVertical } = Astro.props;
 ---
 
 <html lang="en">
@@ -24,18 +26,22 @@ const { title, description } = Astro.props;
         <ViewTransitions/>
 	</head>
     
-	<body class=" w-full min-h-[100dvh] p-0 m-0 relative bg-transparent bg-gradient-to-r items-center justify-center">
+	<body class={` w-full min-h-[100dvh] p-0 m-0 relative bg-transparent bg-gradient-to-r items-center justify-center ${disableCenteredOnVertical ? "" : ""}`}>
         <header class="flex fixed w-full bg-white/80 p-4 backdrop-blur-md top-0 z-20">
             <img src="/logo-aens-horizontal.png" class=" flex w-[150px]"/>
         </header>
-        <main class=" flex flex-col w-full min-h-[100dvh] max-w-[500px] p-8 py-[180px] items-center justify-center font-inter z-20 m-auto" transition:animate="slide">
+        <main class={`flex flex-col w-full min-h-[100dvh] max-w-[500px] p-8 items-center  font-inter z-20 m-auto ${disableCenteredOnVertical ? " pt-[90px]" : "justify-center py-[180px]"}`} transition:animate="slide">
             <slot/>
         </main>
-        <div class=" w-full h-full absolute top-0 -z-10">
-            <img src="/svgs/top-left-form.svg" class=" absolute top-0 -left-0">
-            <img src="/svgs/top-right-form.svg" class=" absolute top-0 right-0">
-            <img src="/svgs/bottom-left-form.svg" class=" absolute -bottom-0 -left-0">
-            <img src="/svgs/bottom-right-form.svg" class=" absolute -bottom-0 -right-0">
+        <div class="w-full h-full absolute top-0 -z-10">
+            {
+                showDecorations && <>
+                    <img src="/svgs/top-left-form.svg" class=" absolute top-0 -left-0">
+                    <img src="/svgs/top-right-form.svg" class=" absolute top-0 right-0">
+                    <img src="/svgs/bottom-left-form.svg" class=" absolute -bottom-0 -left-0">
+                    <img src="/svgs/bottom-right-form.svg" class=" absolute -bottom-0 -right-0">
+                </>
+            }
         </div>
 	</body>
 </html>

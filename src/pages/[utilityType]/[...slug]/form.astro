@@ -2,7 +2,7 @@
 export const prerender = false;
 
 // @ts-ignore
-import { API } from "@/lib/utils/env";
+import { API_URL } from "@/lib/utils/env";
 import { CONVOCATORIAS } from "../../../content/conv";
 import BaseInterection from "../../../layouts/BaseInterection.layout.astro";
 
@@ -13,7 +13,7 @@ import { getUtilityTypeFromLocalType } from "@/lib/utils";
 
 const { slug, utilityType } = Astro.params;
 
-const req = await fetch(`${API}/utility?slug=${slug}&type=${getUtilityTypeFromLocalType(utilityType ?? "")}`, {
+const req = await fetch(`${API_URL}/utility/${slug}?type=${getUtilityTypeFromLocalType(utilityType ?? "")}`, {
     method: "GET",
 });
 
@@ -26,6 +26,7 @@ console.log(convocatoria)
 <BaseInterection
     title={convocatoria?.name ?? "Convocatoria"}
     description={convocatoria!.description}
+    showDecorations={true}
 >
     <div class="flex flex-col items-end h-full space-y-2">
         <h1 class="font-extrabold text-xl text-center w-full">

@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 
-import { API } from "@/lib/utils/env";
+import { API_URL } from "@/lib/utils/env";
 import { CONVOCATORIAS } from "../../../content/conv";
 import BaseInterection from "../../../layouts/BaseInterection.layout.astro";
 
@@ -15,6 +15,7 @@ const { slug, utilityType } = Astro.params;
 <BaseInterection
     title={"Descarga Lista"}
     description={""}
+	showDecorations={true}
 >
     <UtilitySucceededComponent
         slug={slug ?? ""}

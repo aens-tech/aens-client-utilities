@@ -1,0 +1,24 @@
+---
+export const prerender = false
+
+import BaseInterection from "@/layouts/BaseInterection.layout.astro";
+
+import UtilityIndexComponent from "@/components/utility/utilityIndex.component"
+import UtilityDataComponent from "@/components/admin/utilityData.component";
+
+const { slug, type } = Astro.params;
+
+---
+
+<BaseInterection
+    title={"AENS - Convocatoria"}
+    description={"Estas apunto de ser parte de una convocatoria de AENS TECH."}
+	showDecorations={false}
+    disableCenteredOnVertical={true}
+>
+	<UtilityDataComponent
+		slug={slug ?? ""}
+		type={type ?? ""}
+		client:load
+	/>
+</BaseInterection>

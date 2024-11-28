@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 import zod, { date } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { API } from "@/lib/utils/env";
+import { API_URL } from "@/lib/utils/env";
 import type { IUtilityResponse } from "@/interfaces/utility";
 import { getActionFromUtilityType, getUtilityTypeFromLocalType } from "@/lib/utils";
 
@@ -53,7 +53,7 @@ const MainFormComponent: React.FC<Props> = (props) => {
             // Crear una instancia de FormData
             console.log(data)
 
-            const response = await fetch(`${API}/utility/action`, {
+            const response = await fetch(`${API_URL}/utility/action`, {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({
